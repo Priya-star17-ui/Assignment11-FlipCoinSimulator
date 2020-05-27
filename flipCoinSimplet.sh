@@ -1,27 +1,23 @@
 #!/bin/bash -x
-#Head=1
-#Tail=0
-i=1
-flipHead=0
-flipTail=0
-while [ $i -le 20 ]
+
+IS_HEAD=1
+IS_TAIL=0
+
+declare -A toss
+
+i=0
+coinCheck=$((RANDOM%4))
+for (( i=0 ; i<=$flip; i++ ))
 do
-        coinCheck=$(($RANDOM%2))
-	if [[ $coinCheck -eq 1 ]]
+	if [[ $coinCheck -eq $IS_HEAD  ]]
 	then
-		flipHead=$(( $flipHead + 1 ))
-		if [[ $flipHead -eq 11 ]]
-		then
-			echo "head wins"
-		fi  
+		head=$(($head+1))
+	        echo "flipping head " $head 
+		echo ${toss[$i]}=$head
 	else
-		flipTail=$(( $flipTail + 1 ))
-		if [[ $flipTail -eq 11 ]]
-		then
-			echo "tail wins"
-		fi
+		tail=$((tail+1))
+        	echo " flipping tail " $tail #${toss[tails]}
 	fi
-	echo "Total head wins" $flipHead
-	echo "Total tail wins" $flipTail
-	((i++))
+		echo  ${toss[$i]}=$tail
 done
+	echo ${toss[@]}
